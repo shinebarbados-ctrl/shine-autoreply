@@ -1,0 +1,19 @@
+{
+  "name": "shine-autoreply",
+  "version": "1.0.0",
+  "description": "Shine Automotive AI auto-reply for WhatsApp and Instagram DMs",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test/simulate.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.60.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}
