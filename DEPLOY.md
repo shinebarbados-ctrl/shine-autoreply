@@ -31,8 +31,8 @@ In your Railway service, open **Variables > Raw Editor** and paste this whole bl
 
 ```
 DRY_RUN=true
-ADMIN_TOKEN=Q41pAhAlD5mEui1ytwZT0GgRpiMt-6DL
-WEBHOOK_VERIFY_TOKEN=m2zgf618f5JasAhGTDsSHA
+ADMIN_TOKEN=
+WEBHOOK_VERIFY_TOKEN=
 GRAPH_VERSION=v23.0
 WHATSAPP_PHONE_NUMBER_ID=1164058913458236
 HANDOFF_PAUSE_HOURS=12
@@ -46,7 +46,7 @@ BOOKING_URL=
 
 `DRY_RUN=true` is deliberate. The server will log replies rather than send them until you flip it.
 
-The two tokens above are randomly generated for you. Replace them with your own if you prefer, just keep `WEBHOOK_VERIFY_TOKEN` matching what you give Meta in Step 6.
+Both tokens are deliberately blank here. Never commit them to a repo. Paste the values Claude gave you in chat directly into Railway, and keep `WEBHOOK_VERIFY_TOKEN` matching what you give Meta in Step 6.
 
 ### The four blanks
 
@@ -77,7 +77,7 @@ Note that handoff alerts to `OWNER_WHATSAPP` will only arrive if that number is 
 App dashboard > Use cases > Connect on WhatsApp > **Webhooks**.
 
 - Callback URL: `https://YOUR-RAILWAY-URL/webhook/whatsapp`
-- Verify token: `m2zgf618f5JasAhGTDsSHA`
+- Verify token: the value you set for `WEBHOOK_VERIFY_TOKEN`
 - Click Verify and save. It should go green immediately. If it does not, open `https://YOUR-RAILWAY-URL/health` in a browser first to confirm the server is awake.
 - Then subscribe to the **messages** field.
 
