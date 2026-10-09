@@ -1,6 +1,9 @@
+import { load, save, listConversations, pause, resume, addMessage, markSent, send } from '../../lib/bot.js';
+import { getStore } from '@netlify/blobs';
 // Admin API behind the dashboard. Everything here requires ADMIN_TOKEN.
 
-import { load, save, listConversations, pause, resume, addMessage, markSent, send } from '../../lib/bot.js';
+const knowledgeStore = () => getStore({ name: 'shine-knowledge', consistency: 'strong' });
+
 
 function authed(req) {
   const token = process.env.ADMIN_TOKEN;
@@ -32,7 +35,28 @@ export default async (req) => {
       return Response.json({ channel: c.channel, userId: c.userId, name: c.name, history: c.history });
     }
 
+    // What the bot currently treats as fact. Returns the live override if one
+    // has been saved, otherwise null, meaning the copy bundled at build time.
+    if (action === 'knowledge' && req.method === 'GET') {
+      const current = await knowledgeStore().get('current', { type: 'text' });
+      return Response.json({
+        source: current ? 'override' : 'bundled',
+        bytes: current ? current.length : 0,
+        text: current || null,
+      });
+    }
+
     const body = req.method === 'POST' ? await req.json().catch(() => ({})) : {};
+
+    // Replace the knowledge base live. Takes effect within a minute, no redeploy.
+    if (action === 'knowledge' && req.method === 'POST') {
+      const text = typeof body.text === 'string' ? body.text : '';
+      if (text.trim().length < 50) {
+        return Response.json({ error: 'text too short, refusing to blank the knowledge base' }, { status: 400 });
+      }
+      await knowledgeStore().set('current', text);
+      return Response.json({ ok: true, bytes: text.length });
+    }
 
     if (action === 'pause' && req.method === 'POST') {
       const c = await load(body.channel, body.userId);
