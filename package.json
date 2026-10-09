@@ -1,5 +1,16 @@
 {
   "name": "shine-autoreply",
+  "version": "2.0.0",
+  "description": "Shine Automotive AI auto-reply for WhatsApp and Instagram DMs (Netlify)",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.60.0",
+    "@netlify/blobs": "^8.1.0"
+  }
+}
+{
+  "name": "shine-autoreply",
   "version": "1.0.0",
   "description": "Shine Automotive AI auto-reply for WhatsApp and Instagram DMs",
   "main": "server.js",
