@@ -1,32 +1,10 @@
+# Routing lives in the function files themselves, via
+#   export const config = { path: '/...' }
+# Redirects here would shadow those paths, so there are none.
+
 [build]
   publish = "public"
-  command = "npm install"
 
 [functions]
   node_bundler = "esbuild"
   directory = "netlify/functions"
-
-# Meta webhooks
-[[redirects]]
-  from = "/webhook/whatsapp"
-  to = "/.netlify/functions/webhook-whatsapp"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/webhook/instagram"
-  to = "/.netlify/functions/webhook-instagram"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/health"
-  to = "/.netlify/functions/health"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/admin/*"
-  to = "/.netlify/functions/admin/:splat"
-  status = 200
-  force = true
