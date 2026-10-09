@@ -8,3 +8,6 @@
 [functions]
   node_bundler = "esbuild"
   directory = "netlify/functions"
+  # Env vars are baked in at build time, so a change in the Netlify UI
+  # only reaches the functions after a rebuild. ADMIN_TOKEN added 2026-10-09.
+  
